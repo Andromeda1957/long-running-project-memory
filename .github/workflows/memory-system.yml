@@ -1,0 +1,18 @@
+# Validates the shipped template's memory-system shape on every push and PR,
+# so the scaffold this repo distributes can never drift out of shape.
+name: memory-system
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+      - name: Check template memory-system shape
+        run: python3 template/tools/check_memory_system.py

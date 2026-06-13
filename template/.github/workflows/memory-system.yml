@@ -1,0 +1,19 @@
+# Validates the repo-backed memory system on every push and PR.
+# Pure stdlib — no dependencies to install. Ships with the scaffold so the
+# shape can't rot once you adopt it.
+name: memory-system
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+      - name: Check memory-system shape
+        run: python3 tools/check_memory_system.py
